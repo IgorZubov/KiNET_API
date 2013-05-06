@@ -41,3 +41,23 @@ You can set it manual from your code:
     panel.putBlock(block2);
     panel.putBlock(block3);
     
+# Set frame dimensions
+
+Set by code
+
+    FramePixelMap pixelMap = new FramePixelMap(frameSettings.m_nFrameWidth, frameSettings.m_nFrameHeight);
+    
+Values can be got from settings.xml in first line
+    
+     <frame_dimensions height="18" width="40"></frame_dimensions>
+     
+After reading the settings
+
+    FrameSettings frameSettings = new FrameSettings();
+    frameSettings.readSettings("settings.xml");
+
+It stored in frameSettings.m_nFrameWidth and frameSettings.m_nFrameHeight
+
+Or just set your values
+    
+    FramePixelMap pixelMap = new FramePixelMap(40, 18);
