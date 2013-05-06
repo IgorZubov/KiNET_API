@@ -8,7 +8,6 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
-import kinetProcessor.configurations.BlockConfiguration;
 import kinetProcessor.configurations.ConstTestConfiguration;
 import kinetProcessor.configurations.PanelConfiguration;
 import kinetProcessor.misc.RgbParser;
@@ -27,42 +26,12 @@ public class TestMainClass {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-	    /*
-	     * 
-	     * 
-	     Predefined configuration. TODO: Put config into XML
-	     * 
-	     * 
-	     * */		
-//		FramePixelMap pixelMap = new FramePixelMap(ConstTestConfiguration.PANEL_WIDTH*2, ConstTestConfiguration.PANEL_HEIGHT);
-				
-//	    PanelConfiguration panel1 = new PanelConfiguration(ConstTestConfiguration.PANEL_1_ADDRESS);
-//	    PanelConfiguration panel2 = new PanelConfiguration(ConstTestConfiguration.PANEL_2_ADDRESS);
-//	    panel1.setPanelDimensions(ConstTestConfiguration.PANEL_WIDTH, ConstTestConfiguration.PANEL_HEIGHT);
-//	    panel1.setStartCoordinates(0, 20);
-//	    panel2.setPanelDimensions(ConstTestConfiguration.PANEL_WIDTH, ConstTestConfiguration.PANEL_HEIGHT);
-//	    panel2.setStartCoordinates(0, 0);
-//	    
-//	    BlockConfiguration block1 = new BlockConfiguration(ConstTestConfiguration.BLOCK_1_PIXELS_AMOUNT, 1);
-//	    BlockConfiguration block2 = new BlockConfiguration(ConstTestConfiguration.BLOCK_2_PIXELS_AMOUNT, 2);
-//	    BlockConfiguration block3 = new BlockConfiguration(ConstTestConfiguration.BLOCK_3_PIXELS_AMOUNT, 3);
-//	    
-//	    panel1.putBlock(block1);
-//	    panel1.putBlock(block2);
-//	    panel1.putBlock(block3);
-//	    
-//	    panel2.putBlock(block1);
-//	    panel2.putBlock(block2);
-//	    panel2.putBlock(block3);
-	    /*
-	     * 
-	     * 
-	     Predefined configuration. TODO: Put config into XML
-	     * 
-	     * 
-	     * */
-	    XmlParser p = new XmlParser();
-	    p.test();
+		RgbParser.setBlueGammaCorrection(0.82f);
+		RgbParser.setGreenGammaCorrection(0.82f);
+		RgbParser.setRedGammaCorrection(1.03f);
+
+		XmlParser p = new XmlParser();
+	    p.readSettings("settings.xml");
 	    FramePixelMap pixelMap = new FramePixelMap(p.m_nFrameWidth, p.m_nFrameHeight);
 	    ArrayList< PanelConfiguration> panelList =  p.getPanels();
 	    
@@ -86,8 +55,7 @@ public class TestMainClass {
 		    		} catch (IOException e) {
 		    		}
 		        	System.out.println("Show skull");
-//		        	pixelMap.initWithPixelInfoMap(RgbParser.convertTo2DWithoutUsingGetRGB(image, ConstTestConfiguration.PANEL_WIDTH*2, ConstTestConfiguration.PANEL_HEIGHT));
-		        	pixelMap.initWithPixelInfoMap(RgbParser.convertTo2DWithoutUsingGetRGB1(image, ConstTestConfiguration.PANEL_WIDTH*2, ConstTestConfiguration.PANEL_HEIGHT));
+		        	pixelMap.initWithPixelInfoMap(RgbParser.convertTo2DWithoutUsingGetRGB(image, ConstTestConfiguration.PANEL_WIDTH*2, ConstTestConfiguration.PANEL_HEIGHT));
 		        	client.turnOnFrame(pixelMap);
 		            break;
 		        case 2:

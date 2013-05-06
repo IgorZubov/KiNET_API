@@ -25,19 +25,26 @@ public class XmlParser {
 		m_panels = new ArrayList<PanelConfiguration>();
 	}
 	
-	public void test () {
+	/**
+	 * Read settings.xml file
+	 * 
+	 *
+	 * @param pathName path of "setting.xml" file
+	 */
+	
+	public void readSettings (String pathName) {
 		try {
-            // Получить SAX Parser Factory
             SAXParserFactory factory = SAXParserFactory.newInstance();
-            // Включить проверку корректности, выключить пространство имен
             factory.setValidating(true);
             factory.setNamespaceAware(false);
             SAXParser parser = factory.newSAXParser();
-            File f = new File("settings.xml");
-            parser.parse(f, new MyHandler(m_panels));
+            File f = new File(pathName);
+            MyHandler handler = new MyHandler(m_panels);
+            parser.parse(f, handler);
+            m_nFrameWidth = handler.m_frameWidth;
+            m_nFrameHeight = handler.m_frameHeight;
         } catch (ParserConfigurationException e) {
-            System.out.println("The underlying parser does not support " +
-                               " the requested features.");
+            System.out.println("The underlying parser does not support the requested features.");
         } catch (FactoryConfigurationError e) {
             System.out.println("Error occurred obtaining SAX Parser Factory.");
         } catch (Exception e) {
@@ -84,6 +91,8 @@ public class XmlParser {
 class MyHandler extends DefaultHandler {
 	private ArrayList<PanelConfiguration> m_panelList;
 	private int m_nPanelCounter = 0;
+	public int m_frameHeight;
+	public int m_frameWidth;
 	
     public MyHandler(ArrayList<PanelConfiguration> panelLis) {
     	if (m_panelList == null) {
@@ -93,26 +102,27 @@ class MyHandler extends DefaultHandler {
 	}
 	
 	@Override
-	public void characters(char[] ch, int start, int length)
-			throws SAXException {
-		// TODO Auto-generated method stub
-		super.characters(ch, start, length);
-	}
-	
-	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-		if (qName.equals("ip_address")) {
-			m_panelList.add(new PanelConfiguration(attributes.getValue("value")));
-		}
-		if (qName.equals("start_coordinates")) {
-			m_panelList.get(m_nPanelCounter).setStartCoordinates(Integer.decode(attributes.getValue("x")), Integer.decode(attributes.getValue("y")));
-		}
-		if (qName.equals("panel_dimensions")) {
-			m_panelList.get(m_nPanelCounter).setPanelDimensions(Integer.decode(attributes.getValue("width")), Integer.decode(attributes.getValue("height")));
-		}
-		if (qName.equals("block")) {
-			BlockConfiguration block = new BlockConfiguration(Integer.decode(attributes.getValue("pixels")), Integer.decode(attributes.getValue("id")));
-			m_panelList.get(m_nPanelCounter).putBlock(block);
+		try {
+			if (qName.equals("frame_dimensions")) {
+				m_frameWidth = Integer.decode(attributes.getValue("width"));
+				m_frameHeight = Integer.decode(attributes.getValue("height"));
+			}
+			if (qName.equals("ip_address")) {
+				m_panelList.add(new PanelConfiguration(attributes.getValue("value")));
+			}
+			if (qName.equals("start_coordinates")) {
+				m_panelList.get(m_nPanelCounter).setStartCoordinates(Integer.decode(attributes.getValue("x")), Integer.decode(attributes.getValue("y")));
+			}
+			if (qName.equals("panel_dimensions")) {
+				m_panelList.get(m_nPanelCounter).setPanelDimensions(Integer.decode(attributes.getValue("width")), Integer.decode(attributes.getValue("height")));
+			}
+			if (qName.equals("block")) {
+				BlockConfiguration block = new BlockConfiguration(Integer.decode(attributes.getValue("pixels")), Integer.decode(attributes.getValue("id")));
+				m_panelList.get(m_nPanelCounter).putBlock(block);
+			}
+		} catch (Exception e) {
+			throw new SAXException(e);
 		}
 	}
 	
@@ -121,5 +131,5 @@ class MyHandler extends DefaultHandler {
 		if (qName.equals("panel")) {
 			m_nPanelCounter++;
 		}
-	}
+	}	
 }

@@ -65,10 +65,6 @@ public class FramePixelMap {
 	public PixelInfo[][] getPixelMap () {
 		return m_pixelMap;
 	}
-
-	public void initWithPixelInfoMap (FramePixelMap framePixelMap) {
-		m_pixelMap = framePixelMap.getPixelMap();
-	}
 	
 	public void initWithPixelInfoMap (PixelInfo[][] pixelMap) {
 		m_pixelMap = pixelMap;
