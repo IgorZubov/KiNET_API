@@ -15,13 +15,13 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-public class XmlParser {
+public class FrameSettings {
 	private ArrayList<PanelConfiguration> m_panels;
 	public int m_nFrameWidth;
 	public int m_nFrameHeight;
 	
 	
-	public XmlParser () {
+	public FrameSettings () {
 		m_panels = new ArrayList<PanelConfiguration>();
 	}
 	

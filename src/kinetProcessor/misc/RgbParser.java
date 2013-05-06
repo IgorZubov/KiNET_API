@@ -22,7 +22,7 @@ public final class RgbParser {
 		m_rBlueGammaCorrection = gamma;
 	}
 	
-	public static PixelInfo[][] convertTo2DWithoutUsingGetRGB(BufferedImage image, int frameWidth, int frameHeight) {
+	public static PixelInfo[][] getRGB(BufferedImage image, int frameWidth, int frameHeight) {
 		final byte[] pixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
 		final int pictureWidth = image.getWidth();
 		final PixelInfo[][] bytePixelMap = new PixelInfo[frameHeight][frameWidth];

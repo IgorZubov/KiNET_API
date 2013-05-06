@@ -11,31 +11,23 @@ import javax.imageio.ImageIO;
 import kinetProcessor.configurations.ConstTestConfiguration;
 import kinetProcessor.configurations.PanelConfiguration;
 import kinetProcessor.misc.RgbParser;
-import kinetProcessor.misc.XmlParser;
+import kinetProcessor.misc.FrameSettings;
 import kinetProcessor.pixelMap.FramePixelMap;
 import kinetProcessor.videoPlayer.VideoPlayer;
 
 public class TestMainClass {
-
-	
 	volatile public static boolean FINISHED = false;
 	
-	
-	
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		RgbParser.setBlueGammaCorrection(0.82f);
 		RgbParser.setGreenGammaCorrection(0.82f);
 		RgbParser.setRedGammaCorrection(1.03f);
 
-		XmlParser p = new XmlParser();
-	    p.readSettings("settings.xml");
-	    FramePixelMap pixelMap = new FramePixelMap(p.m_nFrameWidth, p.m_nFrameHeight);
-	    ArrayList< PanelConfiguration> panelList =  p.getPanels();
-	    
-	    
+		FrameSettings frameSettings = new FrameSettings();
+	    frameSettings.readSettings("settings.xml");
+	    FramePixelMap pixelMap = new FramePixelMap(frameSettings.m_nFrameWidth, frameSettings.m_nFrameHeight);
+	    ArrayList<PanelConfiguration> panelList =  frameSettings.getPanels();
+
 	    KinetClient client = new KinetClient();
 	    client.putPanel(panelList.get(0));
 	    client.putPanel(panelList.get(1));
@@ -54,8 +46,8 @@ public class TestMainClass {
 		    		    image = ImageIO.read(sourceimage);
 		    		} catch (IOException e) {
 		    		}
-		        	System.out.println("Show skull");
-		        	pixelMap.initWithPixelInfoMap(RgbParser.convertTo2DWithoutUsingGetRGB(image, ConstTestConfiguration.PANEL_WIDTH*2, ConstTestConfiguration.PANEL_HEIGHT));
+		        	System.out.println("Show pic");
+		        	pixelMap.initWithPixelInfoMap(RgbParser.getRGB(image, ConstTestConfiguration.PANEL_WIDTH*2, ConstTestConfiguration.PANEL_HEIGHT));
 		        	client.turnOnFrame(pixelMap);
 		            break;
 		        case 2:
@@ -65,7 +57,7 @@ public class TestMainClass {
 		    		} catch (IOException e) {
 		    		}
 		        	System.out.println("Show rasta");
-		        	pixelMap.initWithPixelInfoMap(RgbParser.convertTo2DWithoutUsingGetRGB(image, ConstTestConfiguration.PANEL_WIDTH*2, ConstTestConfiguration.PANEL_HEIGHT));
+		        	pixelMap.initWithPixelInfoMap(RgbParser.getRGB(image, ConstTestConfiguration.PANEL_WIDTH*2, ConstTestConfiguration.PANEL_HEIGHT));
 		        	client.turnOnFrame(pixelMap);
 		            break;
 		        case 3:
@@ -75,7 +67,7 @@ public class TestMainClass {
 		    		} catch (IOException e) {
 		    		}
 		        	System.out.println("Show russia");
-		        	pixelMap.initWithPixelInfoMap(RgbParser.convertTo2DWithoutUsingGetRGB(image, ConstTestConfiguration.PANEL_WIDTH*2, ConstTestConfiguration.PANEL_HEIGHT));
+		        	pixelMap.initWithPixelInfoMap(RgbParser.getRGB(image, ConstTestConfiguration.PANEL_WIDTH*2, ConstTestConfiguration.PANEL_HEIGHT));
 		        	client.turnOnFrame(pixelMap);
 		            break;
 		        case 4:
@@ -107,7 +99,7 @@ public class TestMainClass {
 		    		    File sourceimage = new File(pathName);
 		    		    if (sourceimage.exists()) {
 		    		    	image = ImageIO.read(sourceimage);
-		    		    	pixelMap.initWithPixelInfoMap(RgbParser.convertTo2DWithoutUsingGetRGB(image, ConstTestConfiguration.PANEL_WIDTH*2, ConstTestConfiguration.PANEL_HEIGHT));
+		    		    	pixelMap.initWithPixelInfoMap(RgbParser.getRGB(image, ConstTestConfiguration.PANEL_WIDTH*2, ConstTestConfiguration.PANEL_HEIGHT));
 		    		    } else {
 		    		    	pixelMap.dropPixels();
 		    		    }

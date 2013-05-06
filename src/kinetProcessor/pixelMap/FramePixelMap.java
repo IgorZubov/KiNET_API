@@ -39,25 +39,31 @@ public class FramePixelMap {
 	}
 
 	public byte getRedAt(int row, int col) {
-		if (m_pixelMap[row][col] != null) {
+		try {
 			return m_pixelMap[row][col].getRed();
-		} else {
+		} catch (NullPointerException e) {
+			return 0;
+		} catch (ArrayIndexOutOfBoundsException e) {
 			return 0;
 		}
 	}
 
 	public byte getGreenAt(int row, int col) {
-		if (m_pixelMap[row][col] != null) {
+		try {
 			return m_pixelMap[row][col].getGreen();
-		} else {
+		} catch (NullPointerException e) {
+			return 0;
+		} catch (ArrayIndexOutOfBoundsException e) {
 			return 0;
 		}
 	}
 
 	public byte getBlueAt(int row, int col) {
-		if (m_pixelMap[row][col] != null) {
+		try {
 			return m_pixelMap[row][col].getBlue();
-		} else {
+		} catch (NullPointerException e) {
+			return 0;
+		} catch (ArrayIndexOutOfBoundsException e) {
 			return 0;
 		}
 	}

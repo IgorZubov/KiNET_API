@@ -71,7 +71,7 @@ public class VideoPlayer extends Thread {
 			}		
 			BufferedImage img = mediaPlayer.getSnapshot(m_frameWidth, m_frameHeight);
 			if (img != null) {
-				map.initWithPixelInfoMap(RgbParser.convertTo2DWithoutUsingGetRGB(img, m_frameWidth, m_frameHeight));
+				map.initWithPixelInfoMap(RgbParser.getRGB(img, m_frameWidth, m_frameHeight));
 				m_client.turnOnFrame(map);
 				img.flush();
 			}
