@@ -1,6 +1,6 @@
 Base JAVA implementation of KiNET protocol.
 
-# Set whole fame configuration
+# Set whole frame configuration
 
 ## From settings.xml file
 
