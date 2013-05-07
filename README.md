@@ -61,3 +61,13 @@ It stored in frameSettings.m_nFrameWidth and frameSettings.m_nFrameHeight
 Or just set your values
     
     FramePixelMap pixelMap = new FramePixelMap(40, 18);
+    
+# Getting and sending image
+
+Afer you set up panel and frame map you should init fame map with certain image.
+
+You need to put image from any source to BufferedImage and get RGB information from it
+
+    File sourceimage = new File("img_test.jpg");
+    BufferedImage image = ImageIO.read(sourceimage);
+    pixelMap.initWithPixelInfoMap(RgbParser.getRGB(image, pixelMap.getWidth(), pixelMap.getHeight()));
