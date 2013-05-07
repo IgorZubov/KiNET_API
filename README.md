@@ -71,3 +71,15 @@ You need to put image from any source to BufferedImage and get RGB information f
     File sourceimage = new File("img_test.jpg");
     BufferedImage image = ImageIO.read(sourceimage);
     pixelMap.initWithPixelInfoMap(RgbParser.getRGB(image, pixelMap.getWidth(), pixelMap.getHeight()));
+    
+Then create the KiNET client and put your predefined panels
+
+    KinetClient client = new KinetClient();
+    client.putPanel(panel1));
+    client.putPanel(panel2);
+    
+And finaly send your picture wich is saved in FramePixelMap
+
+    client.turnOnFrame(pixelMap);
+
+
