@@ -1,5 +1,6 @@
 package kinetProcessor;
 
+import kinetProcessor.main.KinetClient;
 import kinetProcessor.pixelMap.FramePixelMap;
 
 public class FrameRunner extends Thread {

@@ -2,8 +2,8 @@
 <frame>
 	<frame_dimensions height="18" width="40"></frame_dimensions>
 	<panel name="Panel1">
-		<ip_address value="192.168.0.197"></ip_address>
-		<start_coordinates x="0" y="20"></start_coordinates>
+		<ip_address value="192.168.0.198"></ip_address>
+		<start_coordinates x="0" y="0"></start_coordinates>
 		<panel_dimensions height="18" width="20"></panel_dimensions>
 		<blocks>
 			<block pixels="168" id="1"></block>
@@ -12,8 +12,8 @@
 		</blocks>
 	</panel>
 	<panel name="Panel2">
-		<ip_address value="192.168.0.198"></ip_address>
-		<start_coordinates x="0" y="0"></start_coordinates>
+		<ip_address value="192.168.0.197"></ip_address>
+		<start_coordinates x="20" y="0"></start_coordinates>
 		<panel_dimensions height="18" width="20"></panel_dimensions>
 		<blocks>
 			<block pixels="168" id="1"></block>

@@ -9,6 +9,7 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 
 import kinetProcessor.configurations.PanelConfiguration;
+import kinetProcessor.main.KinetClient;
 import kinetProcessor.misc.KinetRgbParser;
 import kinetProcessor.misc.FrameSettings;
 import kinetProcessor.pixelMap.FramePixelMap;

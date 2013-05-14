@@ -5,8 +5,8 @@ import java.io.File;
 
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.headless.HeadlessMediaPlayer;
-import kinetProcessor.KinetClient;
 import kinetProcessor.TestMainClass;
+import kinetProcessor.main.KinetClient;
 import kinetProcessor.misc.KinetRgbParser;
 import kinetProcessor.pixelMap.FramePixelMap;
 
