@@ -85,6 +85,11 @@ public class KinetClient {
 		turnOnFrame(pixelMap);
 	}
 	
+	public void removePanels() {
+		m_panelsList.clear();
+		m_socketsList.clear();
+	}
+	
 	public void closeSocket() {
 		for (DatagramSocket s : m_socketsList) {
 			s.close();
@@ -95,10 +100,10 @@ public class KinetClient {
 		ArrayList<ByteBuffer> data = new ArrayList<ByteBuffer>();
 		for (PanelConfiguration p : m_panelsList) {
 			ByteBuffer buffer = ByteBuffer.allocate(p.getPanelHeight() * p.getPanelWidth() * 3);
-			int actualHeight = p.getPanelHeight() + p.getStartX();
-			for (int row = p.getStartX(); row < actualHeight; row++) {
-				int actualWidth = p.getPanelWidth() + p.getStartY();
-				for (int col = p.getStartY(); col < actualWidth; col++) {
+			int actualHeight = p.getPanelHeight() + p.getStartY();
+			for (int row = p.getStartY(); row < actualHeight; row++) {
+				int actualWidth = p.getPanelWidth() + p.getStartX();
+				for (int col = p.getStartX(); col < actualWidth; col++) {
 					buffer.put(pixelMap.getRedAt(row, col));
 					buffer.put(pixelMap.getGreenAt(row, col));
 					buffer.put(pixelMap.getBlueAt(row, col));

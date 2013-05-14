@@ -5,7 +5,7 @@ import java.awt.image.DataBufferByte;
 
 import kinetProcessor.pixelMap.PixelInfo;
 
-public final class RgbParser {	
+public final class KinetRgbParser {	
 	private static float m_rRedGammaCorrection = 1f;
 	private static float m_rGreeenGammaCorrection = 1f;
 	private static float m_rBlueGammaCorrection = 1f;
@@ -20,6 +20,39 @@ public final class RgbParser {
 
 	public static void setBlueGammaCorrection (float gamma) {
 		m_rBlueGammaCorrection = gamma;
+	}
+	
+	public static PixelInfo[][] getRGBexceptA(byte[] image, String format, int imageWidth, int frameWidth, int frameHeight) {
+		final PixelInfo[][] bytePixelMap = new PixelInfo[frameHeight][frameWidth];
+		int pictureRow = 0, pictureLine = 0, frameRow = 0, frameLine = 0;
+		int pixelLength = format.length();
+		for (int pixel = 0; (frameLine < frameHeight) && (pixel < image.length); pixel += pixelLength) {
+			byte red = gammaCorrection (image[pixel ], m_rRedGammaCorrection);		//red
+			byte green = gammaCorrection (image[pixel + 1], m_rGreeenGammaCorrection);	//green
+			byte blue = gammaCorrection (image[pixel + 2], m_rBlueGammaCorrection);  	//blue
+			bytePixelMap[frameLine][frameRow] = new PixelInfo(red, green, blue);
+			pictureRow++;
+			frameRow++;
+			if (pictureRow >= imageWidth) {
+				pictureRow = 0;
+				pictureLine++;
+			}
+			if (frameRow >= frameWidth) {
+				frameRow = 0;
+				frameLine++;
+			}
+			if (frameLine > pictureLine) {
+				pictureLine = frameLine;
+				pixel = pictureLine * imageWidth;
+				pictureRow = 0;
+				frameRow = 0;
+			} else if (frameLine < pictureLine) {
+				frameLine = pictureLine;
+				frameRow = 0;
+				pictureRow = 0;
+			}
+		}
+		return bytePixelMap;
 	}
 	
 	public static PixelInfo[][] getRGB(BufferedImage image, int frameWidth, int frameHeight) {

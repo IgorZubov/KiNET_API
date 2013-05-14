@@ -8,9 +8,8 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
-import kinetProcessor.configurations.ConstTestConfiguration;
 import kinetProcessor.configurations.PanelConfiguration;
-import kinetProcessor.misc.RgbParser;
+import kinetProcessor.misc.KinetRgbParser;
 import kinetProcessor.misc.FrameSettings;
 import kinetProcessor.pixelMap.FramePixelMap;
 import kinetProcessor.videoPlayer.VideoPlayer;
@@ -19,14 +18,14 @@ public class TestMainClass {
 	volatile public static boolean FINISHED = false;
 	
 	public static void main(String[] args) {
-		RgbParser.setBlueGammaCorrection(0.82f);
-		RgbParser.setGreenGammaCorrection(0.82f);
-		RgbParser.setRedGammaCorrection(1.03f);
+		KinetRgbParser.setBlueGammaCorrection(0.82f);
+		KinetRgbParser.setGreenGammaCorrection(0.82f);
+		KinetRgbParser.setRedGammaCorrection(1.03f);
 
 		FrameSettings frameSettings = new FrameSettings();
 	    frameSettings.readSettings("settings.xml");
 	    FramePixelMap pixelMap = new FramePixelMap(frameSettings.m_nFrameWidth, frameSettings.m_nFrameHeight);
-	    ArrayList<PanelConfiguration> panelList =  frameSettings.getPanels();
+	    ArrayList<PanelConfiguration> panelList = frameSettings.getPanels();
 
 	    KinetClient client = new KinetClient();
 	    client.putPanel(panelList.get(0));
@@ -47,7 +46,7 @@ public class TestMainClass {
 		    		} catch (IOException e) {
 		    		}
 		        	System.out.println("Show pic");
-		        	pixelMap.initWithPixelInfoMap(RgbParser.getRGB(image, ConstTestConfiguration.PANEL_WIDTH*2, ConstTestConfiguration.PANEL_HEIGHT));
+		        	pixelMap.initWithPixelInfoMap(KinetRgbParser.getRGB(image, pixelMap.getWidth(), pixelMap.getHeight()));
 		        	client.turnOnFrame(pixelMap);
 		            break;
 		        case 2:
@@ -57,7 +56,7 @@ public class TestMainClass {
 		    		} catch (IOException e) {
 		    		}
 		        	System.out.println("Show rasta");
-		        	pixelMap.initWithPixelInfoMap(RgbParser.getRGB(image, ConstTestConfiguration.PANEL_WIDTH*2, ConstTestConfiguration.PANEL_HEIGHT));
+		        	pixelMap.initWithPixelInfoMap(KinetRgbParser.getRGB(image, pixelMap.getWidth(), pixelMap.getHeight()));
 		        	client.turnOnFrame(pixelMap);
 		            break;
 		        case 3:
@@ -67,7 +66,7 @@ public class TestMainClass {
 		    		} catch (IOException e) {
 		    		}
 		        	System.out.println("Show russia");
-		        	pixelMap.initWithPixelInfoMap(RgbParser.getRGB(image, ConstTestConfiguration.PANEL_WIDTH*2, ConstTestConfiguration.PANEL_HEIGHT));
+		        	pixelMap.initWithPixelInfoMap(KinetRgbParser.getRGB(image, pixelMap.getWidth(), pixelMap.getHeight()));
 		        	client.turnOnFrame(pixelMap);
 		            break;
 		        case 4:
@@ -87,7 +86,7 @@ public class TestMainClass {
 		        case 7:
 		        	System.out.println("Run video. Enter path name:__________");
 		        	scanner = new Scanner(System.in);
-		        	VideoPlayer testPlayer = new VideoPlayer(client, scanner.nextLine(), ConstTestConfiguration.PANEL_WIDTH*2, ConstTestConfiguration.PANEL_HEIGHT);
+		        	VideoPlayer testPlayer = new VideoPlayer(client, scanner.nextLine(), pixelMap.getWidth(), pixelMap.getHeight());
 		        	FINISHED = false;
 		        	testPlayer.start();
 		            break;
@@ -99,7 +98,7 @@ public class TestMainClass {
 		    		    File sourceimage = new File(pathName);
 		    		    if (sourceimage.exists()) {
 		    		    	image = ImageIO.read(sourceimage);
-		    		    	pixelMap.initWithPixelInfoMap(RgbParser.getRGB(image, ConstTestConfiguration.PANEL_WIDTH*2, ConstTestConfiguration.PANEL_HEIGHT));
+		    		    	pixelMap.initWithPixelInfoMap(KinetRgbParser.getRGB(image, pixelMap.getWidth(), pixelMap.getHeight()));
 		    		    } else {
 		    		    	pixelMap.dropPixels();
 		    		    }
